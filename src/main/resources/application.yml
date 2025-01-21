@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: new_taco-cloud
+  profiles:
+    active: dev
