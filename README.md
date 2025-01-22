@@ -12,3 +12,8 @@
 + 프론트엔드:
   + Thymeleaf (서버사이드 템플릿 엔진, Spring Boot와 통합)
   + HTML5, CSS3
+## 레퍼런스
++ Book: Spring In Action 5th
++ Web: 
+  + https://spring.io/
+  + https://docs.spring.io/spring-boot/api/java/index.html
