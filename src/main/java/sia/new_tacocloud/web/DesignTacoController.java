@@ -12,9 +12,12 @@ import sia.new_tacocloud.Ingredient;
 import sia.new_tacocloud.Ingredient.Type;
 import sia.new_tacocloud.Order;
 import sia.new_tacocloud.Taco;
+import sia.new_tacocloud.User;
 import sia.new_tacocloud.data.IngredientRepository;
 import sia.new_tacocloud.data.TacoRepository;
+import sia.new_tacocloud.data.UserRepository;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -30,17 +33,20 @@ public class DesignTacoController {
 
     private TacoRepository tacoRepo;
 
+    private UserRepository userRepo;
+
     @Autowired
-    public DesignTacoController(IngredientRepository ingredientRepo, TacoRepository tacoRepo) {
+    public DesignTacoController(IngredientRepository ingredientRepo, TacoRepository tacoRepo, UserRepository userRepo) {
         this.ingredientRepo = ingredientRepo;
         this.tacoRepo = tacoRepo;
+        this.userRepo = userRepo;
     }
 
     @GetMapping
-    public String showDesignForm(Model model) {
+    public String showDesignForm(Model model, Principal principal) {
 
         List<Ingredient> ingredients = new ArrayList<>();
-        ingredientRepo.findAll().forEach(i -> ingredients.add(i));
+        ingredientRepo.findAll().forEach(ingredients::add);
 
         // 식자재의 유형을 List에서 필터링한 후 showDesignFrom()의 인자로 전달되는 Model 객체의 속성으로 추가
         Type[] types = Ingredient.Type.values();
@@ -49,7 +55,9 @@ public class DesignTacoController {
             model.addAttribute(type.toString().toLowerCase(), filterByType(ingredients, type));
         }
 
-        model.addAttribute("taco", new Taco());
+        String username = principal.getName();
+        User user = userRepo.findByUsername(username);
+        model.addAttribute("user", user);
 
         return "design";
     }

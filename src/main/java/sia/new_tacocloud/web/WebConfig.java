@@ -15,5 +15,6 @@ public class WebConfig implements WebMvcConfigurer { // 뷰 컨트롤러의 역�
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("home");
+        registry.addViewController("/login");
     }
 }
