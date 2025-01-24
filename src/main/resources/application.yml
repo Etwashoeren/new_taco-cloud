@@ -3,3 +3,6 @@ spring:
     name: new_taco-cloud
   profiles:
     active: dev
+taco:
+  orders:
+    pageSize: 10
